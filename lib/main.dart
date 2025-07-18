@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "card.dart";
 import "countries.dart";
+import "RemovableChip.dart";
 
 void main() {
   runApp(const TravelApp());
@@ -118,9 +119,9 @@ class _TravelHomePageState extends State<TravelHomePage> {
           Wrap(
             spacing: 8,
             children: _selectedCountries.map((name) {
-              return ActionChip(
-                label: Text(name),
-                onPressed: () {
+              return RemovableChip(
+                label: name,
+                onRemove: () {
                   setState(() {
                     _selectedCountries.remove(name);
                   });
