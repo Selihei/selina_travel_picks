@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "card.dart";
+import "countries.dart";
 
 void main() {
   runApp(const TravelApp());
@@ -45,21 +46,7 @@ class _TravelHomePageState extends State<TravelHomePage> {
     }
   }
 
-  static final List<Map<String, String>> europeCountries = [
-    {"emoji": "🇮🇹", "name": "Italien"},
-    {"emoji": "🇪🇸", "name": "Spanien"},
-    {"emoji": "🇩🇪", "name": "Deutschland"},
-    {"emoji": "🇫🇷", "name": "Frankreich"},
-    {"emoji": "🇳🇴", "name": "Norwegen"},
-  ];
 
-  static final List<Map<String, String>> southAmericaCountries = [
-    {"emoji": "🇧🇷", "name": "Brasilien"},
-    {"emoji": "🇦🇷", "name": "Argentinien"},
-    {"emoji": "🇨🇱", "name": "Chile"},
-    {"emoji": "🇵🇪", "name": "Peru"},
-    {"emoji": "🇨🇴", "name": "Kolumbien"},
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -116,17 +103,32 @@ class _TravelHomePageState extends State<TravelHomePage> {
             ),
           ),
           const SizedBox(height: 24),
-          const Text("Favoriten", style: TextStyle(fontSize: 18)),
+          Row(
+            children: [
+              const Text("Favoriten", style: TextStyle(fontSize: 18)),
+              SizedBox(width: 15),
+              Text(
+                "Anzahl: ${_selectedCountries.length}",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
-            children: _selectedCountries
-                .map((name) => Chip(label: Text(name)))
-                .toList(),
+            children: _selectedCountries.map((name) {
+              return ActionChip(
+                label: Text(name),
+                onPressed: () {
+                  setState(() {
+                    _selectedCountries.remove(name);
+                  });
+                },
+              );
+            }).toList(),
           ),
         ],
       ),
     );
   }
 }
-
